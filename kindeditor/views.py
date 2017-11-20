@@ -1,10 +1,6 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals
-
 from django.shortcuts import render
-
-
-# -*- coding: utf-8 -*-
 from django.http import HttpResponse
 from django.conf import settings
 from django.views.decorators.csrf import csrf_exempt
@@ -12,12 +8,25 @@ import os
 import uuid
 import json
 import datetime as dt
+from kindeditor.models import KindEditor
 
 
 # Create your views here.
-def test(request):
+# Create your views here.
+def uptest(request):
     if request.method == "GET":
         return render(request, 'test.html')
+    if request.method == "POST":
+        title = request.POST.get('title', '')
+        content = request.POST.get('content', '')
+        KindEditor(title=title, content=content).save()
+    return render(request, 'test.html')
+
+def testviews(request):
+    if request.method == "GET":
+        data = KindEditor.objects.all()[0]
+        ret = {"data":data}
+        return render(request, 'testviews.html',{"ret":ret})
 
 @csrf_exempt
 def upload_image(request, dir_name):

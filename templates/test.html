@@ -35,7 +35,9 @@
 <body>
     <Label ID="Label1" runat="server" Text="">测试富文本编辑器</Label>
     <form id="example" method="post">
-        <textarea id="content1" cols="100" rows="8" style="width:700px;height:350px;visibility:hidden;" runat="server"></textarea>
+        {% csrf_token %}
+        <input type="text" name="title">
+        <textarea id="content1" cols="100" rows="8" style="width:700px;height:350px;visibility:hidden;" name="content"></textarea>
         <br />
         <input type="submit" Text="提交" /> (提交: Ctrl + Enter)
     </form>
