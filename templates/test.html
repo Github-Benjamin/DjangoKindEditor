@@ -1,0 +1,43 @@
+<!doctype html>
+
+<html>
+<head runat="server">
+    <meta charset="utf-8" />
+    <title>KindEditor ASP.NET</title>
+    <link rel="stylesheet" href="../../static/kindeditor/themes/default/default.css" />
+	<link rel="stylesheet" href="../../static/kindeditor/plugins/code/prettify.css" />
+	<script charset="utf-8" src="../../static/kindeditor/kindeditor-all.js"></script>
+	<script charset="utf-8" src="../../static/kindeditor/lang/zh-CN.js"></script>
+	<script charset="utf-8" src="../../static/kindeditor/plugins/code/prettify.js"></script>
+	<script>
+		KindEditor.ready(function(K) {
+			var editor1 = K.create('#content1', {
+				cssPath : '../../static/kindeditor/plugins/code/prettify.css',
+				uploadJson : 'kindeditor/uploads/image',
+				fileManagerJson : 'asp.net/file_manager_json.ashx',
+				allowFileManager : true,
+				afterCreate : function() {
+					var self = this;
+					K.ctrl(document, 13, function() {
+						self.sync();
+						K('form[name=example]')[0].submit();
+					});
+					K.ctrl(self.edit.doc, 13, function() {
+						self.sync();
+						K('form[name=example]')[0].submit();
+					});
+				}
+			});
+			prettyPrint();
+		});
+	</script>
+</head>
+<body>
+    <Label ID="Label1" runat="server" Text="">测试富文本编辑器</Label>
+    <form id="example" method="post">
+        <textarea id="content1" cols="100" rows="8" style="width:700px;height:350px;visibility:hidden;" runat="server"></textarea>
+        <br />
+        <input type="submit" Text="提交" /> (提交: Ctrl + Enter)
+    </form>
+</body>
+</html>
